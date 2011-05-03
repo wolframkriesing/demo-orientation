@@ -1,0 +1,40 @@
+<DOCTYPE html>
+<html>
+<body>
+	
+	<style>
+		body {
+			background-color: grey;
+		}
+	
+		.inner {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			-webkit-transform: rotateY(0deg) rotateX(0deg);
+		}
+	</style>
+	<div style="position:absolute; top: 100px; left: 100px;">
+		<div id="black" class="inner" style="top:0px; -webkit-transform: rotateY(0deg) rotateX(0deg);">
+			<img src="uxebu-black.svg" height="400" />
+		</div>
+		<div id="white" class="inner" style="-webkit-transform: rotateY(0deg) rotateX(0deg);">
+			<img src="uxebu-white.svg" height="400" />
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		var blackNode = document.getElementById("black");
+		var whiteNode = document.getElementById("white");
+		window.addEventListener("deviceorientation", function(e){
+			var b = e.beta;
+			var g = e.gamma;
+			blackNode.style["-webkit-transform"] = "rotateY(" + -g*Math.PI/2 + "deg) rotateX(" + b*Math.PI/2 + "deg)";
+			whiteNode.style["-webkit-transform"] = "rotateY(" + -g*Math.PI/2 + "deg) rotateX(" + b*Math.PI/2 + "deg)";
+			whiteNode.style["top"] = Math.round(b*Math.PI/2*0.7)+3+"px";
+			whiteNode.style["left"] = Math.round(g*Math.PI/2*0.7)+3+"px";
+		});
+	</script>
+	
+</body>
+</html>
