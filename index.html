@@ -25,14 +25,22 @@
 	<script type="text/javascript">
 		var blackNode = document.getElementById("black");
 		var whiteNode = document.getElementById("white");
+		window.addEventListener("MozOrientation", function(evt){
+			if (!evt.gamma && !evt.beta) {
+				evt.gamma = (evt.x * (180 / Math.PI));
+				evt.beta = (evt.y * (180 / Math.PI));
+			}
+			rotateLogo(evt.beta, evt.gamma, "-moz");
+		}, true);
 		window.addEventListener("deviceorientation", function(e){
-			var b = e.beta;
-			var g = e.gamma;
-			blackNode.style["-webkit-transform"] = "rotateY(" + -g*Math.PI/2 + "deg) rotateX(" + b*Math.PI/2 + "deg)";
-			whiteNode.style["-webkit-transform"] = "rotateY(" + -g*Math.PI/2 + "deg) rotateX(" + b*Math.PI/2 + "deg)";
+			rotateLogo(e.beta, e.gamma, "-webkit");
+		});
+		function rotateLogo(b, g, prefix){
+			blackNode.style[prefix + "-transform"] = "rotateY(" + -g*Math.PI/2 + "deg) rotateX(" + b*Math.PI/2 + "deg)";
+			whiteNode.style[prefix + "-transform"] = "rotateY(" + -g*Math.PI/2 + "deg) rotateX(" + b*Math.PI/2 + "deg)";
 			whiteNode.style["top"] = Math.round(b*Math.PI/2*0.7)+3+"px";
 			whiteNode.style["left"] = Math.round(g*Math.PI/2*0.7)+3+"px";
-		});
+		};
 	</script>
 	
 </body>
